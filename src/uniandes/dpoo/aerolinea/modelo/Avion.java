@@ -3,7 +3,7 @@ package uniandes.dpoo.aerolinea.modelo;
 public class Avion {
 	private String nombre;
 	private int capacidad;
-	private Avion(String nombre, int capacidad) {
+	public Avion(String nombre, int capacidad) {
 		super();
 		this.nombre = nombre;
 		this.capacidad = capacidad;
