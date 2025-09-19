@@ -5,9 +5,7 @@ package uniandes.dpoo.aerolinea.modelo;
  */
 public class Ruta
 {
-	
-    // TODO completar
-	private String codigoRuta;
+    private String codigoRuta;
     private String horaSalida;
     private String horaLlegada;
     private Aeropuerto origen;
@@ -27,49 +25,19 @@ public class Ruta
     public String getHoraSalida() { return horaSalida; }
     public String getHoraLlegada() { return horaLlegada; }
 
-    public int getHoraCompletaSalida() {
-        return Integer.parseInt(horaSalida);
+    public static int getMinutos(String horaCompleta) {
+        return Integer.parseInt(horaCompleta) % 100;
     }
 
-    public int getHoraCompletaLlegada() {
-        return Integer.parseInt(horaLlegada);
+    public static int getHoras(String horaCompleta) {
+        return Integer.parseInt(horaCompleta) / 100;
     }
 
-
-    /**
-     * Dada una cadena con una hora y minutos, retorna los minutos.
-     * 
-     * Por ejemplo, para la cadena '715' retorna 15.
-     * @param horaCompleta Una cadena con una hora, donde los minutos siempre ocupan los dos últimos caracteres
-     * @return Una cantidad de minutos entre 0 y 59
-     */
-    public static int getMinutos( String horaCompleta )
-    {
-        int minutos = Integer.parseInt( horaCompleta ) % 100;
-        return minutos;
-    }
-
-    /**
-     * Dada una cadena con una hora y minutos, retorna las horas.
-     * 
-     * Por ejemplo, para la cadena '715' retorna 7.
-     * @param horaCompleta Una cadena con una hora, donde los minutos siempre ocupan los dos últimos caracteres
-     * @return Una cantidad de horas entre 0 y 23
-     */
-    public static int getHoras( String horaCompleta )
-    {
-        int horas = Integer.parseInt( horaCompleta ) / 100;
-        return horas;
-    }
     public static int getDuracion(String horaSalida, String horaLlegada) {
-    	int minHoraSalida =getMinutos( horaSalida );
-    	int minHoraLlegada =getMinutos( horaLlegada );
-    	int HorasToMinSalida=getHoras(horaSalida )*60;
-    	int HorasToMinLLegada=getHoras(horaLlegada )*60;
-    	
-    	return (minHoraSalida+minHoraLlegada+HorasToMinSalida+HorasToMinLLegada);
+        int salida = getHoras(horaSalida) * 60 + getMinutos(horaSalida);
+        int llegada = getHoras(horaLlegada) * 60 + getMinutos(horaLlegada);
+        int duracion = llegada - salida;
+        if (duracion < 0) duracion += 24 * 60;
+        return duracion;
     }
-
-    
-    
 }
